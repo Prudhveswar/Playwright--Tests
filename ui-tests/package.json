@@ -20,5 +20,8 @@
     "@playwright/test": "latest",
     "ts-node": "latest",
     "typescript": "latest"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
   }
 }

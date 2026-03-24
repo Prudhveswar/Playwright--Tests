@@ -1,0 +1,17 @@
+# 1. The "Heavy" Folder (NEVER commit this)
+node_modules/
+
+# 2. Test Reports & Results (Generated automatically, don't save them)
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+
+# 3. Security (Don't share secrets or session cookies!)
+.env
+playwright/.auth/
+
+# 4. OS Junk files
+.DS_Store
+Thumbs.db

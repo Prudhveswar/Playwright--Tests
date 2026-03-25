@@ -4,7 +4,7 @@ const authFilePath = 'playwright/.auth/user.json';
 
 setup('Authenticate and save storage state', async ({ page }) => {
   console.log('Running setup to authenticate and save storage state...');
-  
+
   // Navigate to the login page
   await page.goto('https://www.saucedemo.com/');
 

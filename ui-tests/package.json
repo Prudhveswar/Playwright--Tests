@@ -11,13 +11,16 @@
     "test:ui": "npx playwright test --ui",
     "test:debug": "npx playwright test --debug",
     "test:headed": "npx playwright test --headed",
-    "report": "npx playwright show-report"
+    "report": "npx playwright show-report",
+    "format": "npx prettier --write .",
+    "format:check": "npx prettier --check ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "latest",
+    "prettier": "^3.8.1",
     "ts-node": "latest",
     "typescript": "latest"
   },

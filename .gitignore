@@ -1,3 +1,4 @@
+# Ignore the auth directory
 # 1. The "Heavy" Folder (NEVER commit this)
 node_modules/
 
@@ -6,6 +7,7 @@ test-results/
 playwright-report/
 blob-report/
 playwright/.cache/
+
 
 # 3. Security (Don't share secrets or session cookies!)
 .env

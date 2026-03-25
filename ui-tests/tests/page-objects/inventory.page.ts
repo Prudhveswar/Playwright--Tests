@@ -8,6 +8,7 @@ export class InventoryPage {
   readonly sauceLabsFleeceJacketAddToCartButton: Locator;
   readonly sauceLabsOnesieAddToCartButton: Locator;
   readonly testAllTheThingsTshirtRedAddToCartButton: Locator;
+  readonly inventoryItem: Locator;
   readonly cartBadge: Locator;
 
   constructor(public page: Page) {
@@ -19,22 +20,32 @@ export class InventoryPage {
     this.sauceLabsOnesieAddToCartButton = page.getByTestId('add-to-cart-sauce-labs-onesie');
 // Using page.locator (Safest for special characters like '.' and '()')
     this.testAllTheThingsTshirtRedAddToCartButton = page.locator('[data-test="add-to-cart-test.allthethings()-t-shirt-(red)"]');
+    this.inventoryItem = page.locator('.inventory_item');
     this.cartBadge = page.getByTestId('shopping-cart-badge');
   }
 
   //Function to select a random product and add it to the cart
   async addRandomProductToCart() {
-    const addToCartButtons = [
-      this.sauceLabsBackpackAddToCartButton,
-      this.sauceLabsBikeLightAddToCartButton,
-      this.sauceLabBoltTshirtAddToCartButton,
-      this.sauceLabsFleeceJacketAddToCartButton,
-      this.sauceLabsOnesieAddToCartButton,
-      this.testAllTheThingsTshirtRedAddToCartButton
-    ];
+    // const addToCartButtons = [
+    //   this.sauceLabsBackpackAddToCartButton,
+    //   this.sauceLabsBikeLightAddToCartButton,
+    //   this.sauceLabBoltTshirtAddToCartButton,
+    //   this.sauceLabsFleeceJacketAddToCartButton,
+    //   this.sauceLabsOnesieAddToCartButton,
+    //   this.testAllTheThingsTshirtRedAddToCartButton
+    // ];
+    
+    const itemCount = await this.inventoryItem.count();
+    const randomIndex = UtilityFunction.getRandomIndexFromAnArrayCount(itemCount);
+    const randomProduct = await this.inventoryItem.nth(randomIndex);
+    const productName = await randomProduct.locator('.inventory_item_name').innerText();
+    await randomProduct.getByRole('button', { name: 'Add to cart' }).click();
+    return productName;
 
-    const randomButton = UtilityFunction.getRandomIndexFromAnArrayCount(addToCartButtons.length);
-    await addToCartButtons[randomButton].click();
+
+
+    
+    //await addToCartButtons[randomButton].click();
   }
 
   //Function to navigate to the inventory page

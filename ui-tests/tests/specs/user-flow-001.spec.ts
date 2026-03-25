@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { InventoryPage } from '../page-objects/inventory.page';
+import { CartPage } from '../page-objects/cart.page';
 
 test(
     "User Flow 001",
@@ -17,16 +18,29 @@ test(
       await inventoryPage.goto();
       await inventoryPage.verifyPageLoaded();
       });
-      
+
+     let expectedProductName: string;
+     let cartProduct: string;
+     
       // Step 2: Add a random product to cart
       await test.step('Add a random product to cart', async () => {   
-      const productName = await inventoryPage.addRandomProductToCart();
-      console.log(`Added product to cart: ${productName}`);
+      expectedProductName = await inventoryPage.addRandomProductToCart();
+      console.log(`Added product to cart: ${expectedProductName}`);
       await expect(inventoryPage.cartBadge).toHaveText('1');
       });
 
       //Step 3 : Click on cart to view items
-      await test.step('Click on cart to view items', async () => {
+     await test.step('Click on cart to view items', async () => {
+      await inventoryPage.cartBadge.click();});
+    
+      const cartPage = new CartPage(page);
+      //Step 4: Verify the product is added to the cart
+      await test.step('Verify the product added', async () => {
+        cartProduct = await cartPage.cartItemName.innerText();
+        console.log(`Product found in the cart page: ${cartProduct}`);
+        await expect(cartPage.cartItemName).toHaveText(expectedProductName);
+      
+      });
         
     }
 )

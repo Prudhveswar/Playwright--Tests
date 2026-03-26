@@ -45,7 +45,6 @@ test(
     //Step 5: Proceed to checkout and fill in the details from CSV
     await test.step('Proceed to checkout and fill in the details from CSV', async () => {
       await cartPage.checkoutButton.click();
-      
     });
   }
 );

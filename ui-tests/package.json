@@ -1,26 +1,29 @@
 {
-  "name": "ui-tests",
+  "name": "playwright-automation-suite",
   "version": "1.0.0",
-  "description": "Playwright Automation Framework",
+  "description": "Playwright automation framework running on Dell-Gajuwaka-Runner",
   "main": "index.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "test": "npx playwright test",
-    "test:ui": "npx playwright test --ui",
-    "test:debug": "npx playwright test --debug",
-    "test:headed": "npx playwright test --headed",
-    "report": "npx playwright show-report",
-    "format": "npx prettier --write .",
-    "format:check": "npx prettier --check ."
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "report": "playwright show-report",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
-  "keywords": [],
+  "keywords": [
+    "playwright",
+    "automation",
+    "testing",
+    "docker",
+    "github-actions"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "latest",
-    "prettier": "^3.8.1",
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.5.2",
+    "prettier": "^3.0.0",
     "ts-node": "latest",
     "typescript": "latest"
   },

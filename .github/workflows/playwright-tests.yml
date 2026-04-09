@@ -1,0 +1,29 @@
+name: Playwright Tests on Dell
+on:
+  push:
+    branches: [ '**' ] # Triggers on any branch push
+
+jobs:
+  automation:
+    runs-on: self-hosted # Targets your Dell Inspiron
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+
+      - name: Build Docker Image
+        run: |
+          # Navigate into the folder containing the Dockerfile and package.json
+          cd ui-tests
+          # Build the image locally on your Dell
+          docker build -t playwright-runner .
+
+      - name: Run Playwright Tests
+        run: |
+          cd ui-tests
+          # Execute the container, passing secrets from GitHub to the Dell
+          docker run --rm \
+            -e CI=true \
+            -e MY_USERNAME="${{ secrets.MY_USERNAME }}" \
+            -e MY_PASSWORD="${{ secrets.MY_PASSWORD }}" \
+            playwright-runner

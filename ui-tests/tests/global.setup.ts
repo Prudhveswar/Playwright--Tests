@@ -1,21 +1,18 @@
-import { chromium, FullConfig } from '@playwright/test';
+import { test as setup, expect } from '@playwright/test';
 import fs from 'fs';
 
-async function globalSetup(config: FullConfig) {
-  const authFile = 'playwright/.auth/user.json';
+const authFile = 'playwright/.auth/user.json';
 
-  // 1. If on Acer and file exists, skip login to save time
+// Wrapping it in setup() makes it a "Test" that Playwright can find
+setup('authenticate', async ({ page }) => {
+  
   if (!process.env.CI && fs.existsSync(authFile)) {
-    console.log('Local auth state found. Skipping global setup...');
+    console.log('Local auth state found. Skipping...');
     return;
   }
 
-  // 2. Otherwise (on Dell or first time on Acer), perform login
-  const browser = await chromium.launch({ headless: !!process.env.CI });
-  const page = await browser.newPage();
-
   await page.goto('https://www.saucedemo.com/');
-  
+
   const username = process.env.MY_USERNAME || 'standard_user';
   const password = process.env.MY_PASSWORD || 'secret_sauce';
 
@@ -25,13 +22,9 @@ async function globalSetup(config: FullConfig) {
 
   await page.waitForURL(/.*inventory.html/);
 
-  // Ensure directory exists
   if (!fs.existsSync('playwright/.auth')) {
     fs.mkdirSync('playwright/.auth', { recursive: true });
   }
 
   await page.context().storageState({ path: authFile });
-  await browser.close();
-}
-
-export default globalSetup;
+});

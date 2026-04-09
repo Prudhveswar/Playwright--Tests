@@ -18,7 +18,7 @@ export default defineConfig({
   projects: [
     {
       name: 'setup',
-      testMatch: /global\.setup\.ts/,
+      testMatch: 'global.setup.ts',
       use: {
         headless: !!process.env.CI,
       },

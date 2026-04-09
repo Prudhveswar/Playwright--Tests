@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { InventoryPage } from '../page-objects/inventory.page';
 import { CartPage } from '../page-objects/cart.page';
+import { CheckoutPage } from '../page-objects/checkout.page';
 
 test(
   'User Flow 001',
@@ -42,9 +43,11 @@ test(
       await expect(cartPage.cartItemName).toHaveText(expectedProductName);
     });
 
+    const checkoutPage = new CheckoutPage(page);
     //Step 5: Proceed to checkout and fill in the details from CSV
     await test.step('Proceed to checkout and fill in the details from CSV', async () => {
       await cartPage.checkoutButton.click();
+      await checkoutPage.fillCheckoutInformation();
     });
   }
 );
